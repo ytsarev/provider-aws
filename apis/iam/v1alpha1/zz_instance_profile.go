@@ -26,9 +26,6 @@ import (
 
 // InstanceProfileParameters defines the desired state of InstanceProfile
 type InstanceProfileParameters struct {
-	// Region is which region the InstanceProfile will be created.
-	// +kubebuilder:validation:Required
-	Region string `json:"region"`
 	// The name of the instance profile to create.
 	//
 	// This parameter allows (through its regex pattern (http://wikipedia.org/wiki/regex))

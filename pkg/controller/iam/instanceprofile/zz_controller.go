@@ -54,11 +54,7 @@ type connector struct {
 }
 
 func (c *connector) Connect(ctx context.Context, mg cpresource.Managed) (managed.ExternalClient, error) {
-	cr, ok := mg.(*svcapitypes.InstanceProfile)
-	if !ok {
-		return nil, errors.New(errUnexpectedObject)
-	}
-	sess, err := awsclient.GetConfigV1(ctx, c.kube, mg, cr.Spec.ForProvider.Region)
+	sess, err := awsclient.GetConfigV1(ctx, c.kube, mg, awsclient.GlobalRegion)
 	if err != nil {
 		return nil, errors.Wrap(err, errCreateSession)
 	}
