@@ -1,0 +1,10 @@
+---
+apiVersion: iam.aws.crossplane.io/v1alpha1
+kind: InstanceProfile
+metadata:
+  name: someinstanceprofile
+spec:
+  forProvider:
+    tags:
+      - key: k1
+        value: v1
