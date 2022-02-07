@@ -79,6 +79,7 @@ func init() {
 		databasev1beta1.SchemeBuilder.AddToScheme,
 		docdbv1alpha1.AddToScheme,
 		elasticloadbalancingv1alpha1.SchemeBuilder.AddToScheme,
+		iamv1alpha1.SchemeBuilder.AddToScheme,
 		iamv1beta1.SchemeBuilder.AddToScheme,
 		elbv2v1alpha1.SchemeBuilder.AddToScheme,
 		route53v1alpha1.SchemeBuilder.AddToScheme,
