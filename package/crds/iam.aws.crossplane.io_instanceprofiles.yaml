@@ -61,13 +61,6 @@ spec:
                 description: InstanceProfileParameters defines the desired state of
                   InstanceProfile
                 properties:
-                  instanceProfileName:
-                    description: "The name of the instance profile to create. \n This
-                      parameter allows (through its regex pattern (http://wikipedia.org/wiki/regex))
-                      a string of characters consisting of upper and lowercase alphanumeric
-                      characters with no spaces. You can also include any of the following
-                      characters: _+=,.@-"
-                    type: string
                   path:
                     description: "The path to the instance profile. For more information
                       about paths, see IAM Identifiers (https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
@@ -97,8 +90,6 @@ spec:
                           type: string
                       type: object
                     type: array
-                required:
-                - instanceProfileName
                 type: object
               providerConfigRef:
                 default:
@@ -166,6 +157,9 @@ spec:
                       profile. For more information about IDs, see IAM identifiers
                       (https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
                       in the IAM User Guide.
+                    type: string
+                  instanceProfileName:
+                    description: The name identifying the instance profile.
                     type: string
                   roles:
                     description: The role associated with the instance profile.

@@ -127,9 +127,9 @@ func (e *external) Create(ctx context.Context, mg cpresource.Managed) (managed.E
 		cr.Status.AtProvider.InstanceProfileID = nil
 	}
 	if resp.InstanceProfile.InstanceProfileName != nil {
-		cr.Spec.ForProvider.InstanceProfileName = resp.InstanceProfile.InstanceProfileName
+		cr.Status.AtProvider.InstanceProfileName = resp.InstanceProfile.InstanceProfileName
 	} else {
-		cr.Spec.ForProvider.InstanceProfileName = nil
+		cr.Status.AtProvider.InstanceProfileName = nil
 	}
 	if resp.InstanceProfile.Path != nil {
 		cr.Spec.ForProvider.Path = resp.InstanceProfile.Path

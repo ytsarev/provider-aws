@@ -34,8 +34,8 @@ import (
 func GenerateGetInstanceProfileInput(cr *svcapitypes.InstanceProfile) *svcsdk.GetInstanceProfileInput {
 	res := &svcsdk.GetInstanceProfileInput{}
 
-	if cr.Spec.ForProvider.InstanceProfileName != nil {
-		res.SetInstanceProfileName(*cr.Spec.ForProvider.InstanceProfileName)
+	if cr.Status.AtProvider.InstanceProfileName != nil {
+		res.SetInstanceProfileName(*cr.Status.AtProvider.InstanceProfileName)
 	}
 
 	return res
@@ -61,9 +61,9 @@ func GenerateInstanceProfile(resp *svcsdk.GetInstanceProfileOutput) *svcapitypes
 		cr.Status.AtProvider.InstanceProfileID = nil
 	}
 	if resp.InstanceProfile.InstanceProfileName != nil {
-		cr.Spec.ForProvider.InstanceProfileName = resp.InstanceProfile.InstanceProfileName
+		cr.Status.AtProvider.InstanceProfileName = resp.InstanceProfile.InstanceProfileName
 	} else {
-		cr.Spec.ForProvider.InstanceProfileName = nil
+		cr.Status.AtProvider.InstanceProfileName = nil
 	}
 	if resp.InstanceProfile.Path != nil {
 		cr.Spec.ForProvider.Path = resp.InstanceProfile.Path
@@ -162,25 +162,22 @@ func GenerateInstanceProfile(resp *svcsdk.GetInstanceProfileOutput) *svcapitypes
 func GenerateCreateInstanceProfileInput(cr *svcapitypes.InstanceProfile) *svcsdk.CreateInstanceProfileInput {
 	res := &svcsdk.CreateInstanceProfileInput{}
 
-	if cr.Spec.ForProvider.InstanceProfileName != nil {
-		res.SetInstanceProfileName(*cr.Spec.ForProvider.InstanceProfileName)
-	}
 	if cr.Spec.ForProvider.Path != nil {
 		res.SetPath(*cr.Spec.ForProvider.Path)
 	}
 	if cr.Spec.ForProvider.Tags != nil {
-		f2 := []*svcsdk.Tag{}
-		for _, f2iter := range cr.Spec.ForProvider.Tags {
-			f2elem := &svcsdk.Tag{}
-			if f2iter.Key != nil {
-				f2elem.SetKey(*f2iter.Key)
+		f1 := []*svcsdk.Tag{}
+		for _, f1iter := range cr.Spec.ForProvider.Tags {
+			f1elem := &svcsdk.Tag{}
+			if f1iter.Key != nil {
+				f1elem.SetKey(*f1iter.Key)
 			}
-			if f2iter.Value != nil {
-				f2elem.SetValue(*f2iter.Value)
+			if f1iter.Value != nil {
+				f1elem.SetValue(*f1iter.Value)
 			}
-			f2 = append(f2, f2elem)
+			f1 = append(f1, f1elem)
 		}
-		res.SetTags(f2)
+		res.SetTags(f1)
 	}
 
 	return res
@@ -189,10 +186,6 @@ func GenerateCreateInstanceProfileInput(cr *svcapitypes.InstanceProfile) *svcsdk
 // GenerateDeleteInstanceProfileInput returns a deletion input.
 func GenerateDeleteInstanceProfileInput(cr *svcapitypes.InstanceProfile) *svcsdk.DeleteInstanceProfileInput {
 	res := &svcsdk.DeleteInstanceProfileInput{}
-
-	if cr.Spec.ForProvider.InstanceProfileName != nil {
-		res.SetInstanceProfileName(*cr.Spec.ForProvider.InstanceProfileName)
-	}
 
 	return res
 }

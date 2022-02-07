@@ -14,3 +14,6 @@ ignore:
     - ServiceSpecificCredential
     - User
     - VirtualMFADevice
+  field_paths:
+    - CreateInstanceProfileInput.InstanceProfileName
+    - DeleteInstanceProfileInput.InstanceProfileName

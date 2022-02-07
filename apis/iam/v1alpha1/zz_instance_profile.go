@@ -26,13 +26,6 @@ import (
 
 // InstanceProfileParameters defines the desired state of InstanceProfile
 type InstanceProfileParameters struct {
-	// The name of the instance profile to create.
-	//
-	// This parameter allows (through its regex pattern (http://wikipedia.org/wiki/regex))
-	// a string of characters consisting of upper and lowercase alphanumeric characters
-	// with no spaces. You can also include any of the following characters: _+=,.@-
-	// +kubebuilder:validation:Required
-	InstanceProfileName *string `json:"instanceProfileName"`
 	// The path to the instance profile. For more information about paths, see IAM
 	// Identifiers (https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
 	// in the IAM User Guide.
@@ -77,6 +70,8 @@ type InstanceProfileObservation struct {
 	// about IDs, see IAM identifiers (https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
 	// in the IAM User Guide.
 	InstanceProfileID *string `json:"instanceProfileID,omitempty"`
+	// The name identifying the instance profile.
+	InstanceProfileName *string `json:"instanceProfileName,omitempty"`
 	// The role associated with the instance profile.
 	Roles []*Role `json:"roles,omitempty"`
 }
