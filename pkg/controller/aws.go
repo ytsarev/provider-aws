@@ -159,6 +159,7 @@ func Setup(mgr ctrl.Manager, l logging.Logger, rl workqueue.RateLimiter, poll ti
 		eks.SetupCluster,
 		eksaddon.SetupAddon,
 		identityproviderconfig.SetupIdentityProviderConfig,
+		instanceprofile.SetupInstanceProfile,
 		elb.SetupELB,
 		elbattachment.SetupELBAttachment,
 		nodegroup.SetupNodeGroup,
