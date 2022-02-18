@@ -99,5 +99,12 @@ func postCreate(_ context.Context, cr *svcapitypes.InstanceProfile, resp *svcsdk
 
 func preDelete(_ context.Context, cr *svcapitypes.InstanceProfile, obj *svcsdk.DeleteInstanceProfileInput) (bool, error) {
 	obj.InstanceProfileName = aws.String(meta.GetExternalName(cr))
-	return false, nil
+	svc := iam.New(session.New())
+	input := &iam.RemoveRoleFromInstanceProfileInput{
+		InstanceProfileName: aws.String(cr.Name),
+		RoleName:            cr.Spec.ForProvider.Role,
+	}
+
+	_, err := svc.RemoveRoleFromInstanceProfile(input)
+	return false, err
 }

@@ -5,8 +5,9 @@ metadata:
   name: someinstanceprofile
 spec:
   forProvider:
-    roleRef:
-      name: somerole
+    roleSelector:
+      matchLabels:
+        addToInstanceProfile: "true"
     tags:
       - key: k1
         value: v1

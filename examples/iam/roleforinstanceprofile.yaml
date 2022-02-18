@@ -3,6 +3,8 @@ apiVersion: iam.aws.crossplane.io/v1beta1
 kind: Role
 metadata:
   name: somerole
+  labels:
+    addToInstanceProfile: "true"
 spec:
   forProvider:
     assumeRolePolicyDocument: |
