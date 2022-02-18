@@ -5,6 +5,7 @@ metadata:
   name: someinstanceprofile
 spec:
   forProvider:
+    role: somerole
     tags:
       - key: k1
         value: v1

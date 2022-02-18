@@ -7,13 +7,13 @@ type CustomInstanceProfileParameters struct {
 	// Role is the ID for the Role to add to Instance Profile.
 	// +immutable
 	// +crossplane:generate:reference:type=github.com/crossplane/provider-aws/apis/iam/v1beta1.Role
-	Role *string `json:"Role,omitempty"`
+	Role *string `json:"role,omitempty"`
 
 	// RoleRef is a reference to an Role
 	// +optional
-	RoleRef *xpv1.Reference `json:"RoleRef,omitempty"`
+	RoleRef *xpv1.Reference `json:"roleRef,omitempty"`
 
 	// RoleSelector selects references to Role
 	// +optional
-	RoleSelector *xpv1.Selector `json:"RoleSelector,omitempty"`
+	RoleSelector *xpv1.Selector `json:"roleSelector,omitempty"`
 }
