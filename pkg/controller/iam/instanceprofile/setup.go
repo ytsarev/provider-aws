@@ -20,6 +20,8 @@ import (
 	"context"
 	"time"
 
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/iam"
 	svcsdk "github.com/aws/aws-sdk-go/service/iam"
 	"k8s.io/client-go/util/workqueue"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -45,6 +47,7 @@ func SetupInstanceProfile(mgr ctrl.Manager, l logging.Logger, rl workqueue.RateL
 			e.preObserve = preObserve
 			e.postObserve = postObserve
 			e.preCreate = preCreate
+			e.postCreate = postCreate
 			e.preDelete = preDelete
 		},
 	}
@@ -78,6 +81,20 @@ func postObserve(_ context.Context, cr *svcapitypes.InstanceProfile, _ *svcsdk.G
 func preCreate(_ context.Context, cr *svcapitypes.InstanceProfile, obj *svcsdk.CreateInstanceProfileInput) error {
 	obj.InstanceProfileName = aws.String(meta.GetExternalName(cr))
 	return nil
+}
+
+func postCreate(_ context.Context, cr *svcapitypes.InstanceProfile, resp *svcsdk.CreateInstanceProfileOutput, cre managed.ExternalCreation, err error) (managed.ExternalCreation, error) {
+	if err != nil {
+		return managed.ExternalCreation{}, err
+	}
+	svc := iam.New(session.New())
+	input := &iam.AddRoleToInstanceProfileInput{
+		InstanceProfileName: aws.String(cr.Name),
+		RoleName:            cr.Spec.ForProvider.Role,
+	}
+
+	_, err = svc.AddRoleToInstanceProfile(input)
+	return cre, err
 }
 
 func preDelete(_ context.Context, cr *svcapitypes.InstanceProfile, obj *svcsdk.DeleteInstanceProfileInput) (bool, error) {
